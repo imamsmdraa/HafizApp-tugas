@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hafiz_app/widgets/custom_elevated_button.dart';
-
 import '../../core/app_export.dart';
 import '../../injection_container.dart';
 import 'bloc/onboarding_bloc.dart';
@@ -12,7 +11,7 @@ class OnboardingScreen extends StatefulWidget {
   static Widget builder(BuildContext context) {
     return BlocProvider<OnboardingBloc>(
         create: (context) =>
-            OnboardingBloc(OnboardingState(onboardingModel: OnboardingModel())),
+            OnboardingBloc(OnboardingState(onboardingModel: const OnboardingModel())),
         child: const OnboardingScreen());
   }
 
@@ -40,7 +39,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    mediaQueryData = MediaQuery.of(context);
     return BlocBuilder<OnboardingBloc, OnboardingState>(
         builder: (context, state) {
       return SafeArea(
@@ -140,9 +138,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                       text: "lbl_get_started".tr,
                                       buttonStyle: ButtonStyle(
                                         backgroundColor:
-                                            MaterialStateProperty.all<Color>(
+                                            WidgetStateProperty.all<Color>(
                                                 const Color(0xFFFAF6EB)),
-                                        shape: MaterialStateProperty.all<
+                                        shape: WidgetStateProperty.all<
                                             RoundedRectangleBorder>(
                                           RoundedRectangleBorder(
                                             borderRadius:

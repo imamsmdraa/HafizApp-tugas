@@ -41,7 +41,7 @@ void main() {
   group("SurahBloc Success", () {
     blocTest('emits [LoadingSurahState] when LoadSurahEvent is added',
         build: () => surahBloc,
-        act: (bloc) => bloc.add(LoadSurahEvent(surahId: "114")),
+        act: (bloc) => bloc.add(const LoadSurahEvent(surahId: "114")),
         expect: () => [isA<LoadingSurahState>(), isA<SuccessSurahState>()],
         verify: (_) {
           verify(() => mockGetSurah(const ParamsGetSurah(surahId: "114")))
@@ -52,7 +52,7 @@ void main() {
   group("SurahBloc Failed", () {
     blocTest('emits [FailureSurahState] when LoadSurahEvent is added',
         build: () => surahBloc,
-        act: (bloc) => bloc.add(LoadSurahEvent(surahId: "-1")),
+        act: (bloc) => bloc.add(const LoadSurahEvent(surahId: "-1")),
         expect: () => [isA<LoadingSurahState>(), isA<FailureSurahState>()],
         verify: (_) {
           verify(() => mockGetSurah(const ParamsGetSurah(surahId: "-1")))
@@ -60,7 +60,7 @@ void main() {
         });
     blocTest('emits [ConnectionFailure] when LoadSurahEvent is added',
         build: () => surahBloc,
-        act: (bloc) => bloc.add(LoadSurahEvent(surahId: "-2")),
+        act: (bloc) => bloc.add(const LoadSurahEvent(surahId: "-2")),
         expect: () => [isA<LoadingSurahState>(), isA<FailureSurahState>()],
         verify: (_) {
           verify(() => mockGetSurah(const ParamsGetSurah(surahId: "-2")))

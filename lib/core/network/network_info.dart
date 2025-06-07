@@ -20,6 +20,7 @@ class NetworkInfo implements NetworkInfoI {
   @override
   Future<bool> isConnected() async {
     final result = await connectivity.checkConnectivity();
+    // ignore: unrelated_type_equality_checks
     if (result != ConnectivityResult.none) {
       return true;
     }
@@ -29,11 +30,18 @@ class NetworkInfo implements NetworkInfoI {
   // to check type of internet connectivity
   @override
   Future<ConnectivityResult> get connectivityResult async {
-    return connectivity.checkConnectivity();
+    final results = await connectivity.checkConnectivity();
+    // Return the first result if available, otherwise return ConnectivityResult.none
+    return results.isNotEmpty ? results.first : ConnectivityResult.none;
   }
 
   //check the type on internet connection on changed of internet connection
   @override
-  Stream<ConnectivityResult> get onConnectivityChanged =>
-      connectivity.onConnectivityChanged;
+  Stream<ConnectivityResult> get onConnectivityChanged async* {
+    await for (final results in connectivity.onConnectivityChanged) {
+      for (final result in results) {
+        yield result;
+      }
+    }
+  }
 }
